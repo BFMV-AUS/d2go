@@ -1,12 +1,13 @@
 package memory
 
 import (
-	"github.com/hectorgimenez/d2go/pkg/data/mode"
 	"sort"
 
-	"github.com/hectorgimenez/d2go/pkg/data"
-	"github.com/hectorgimenez/d2go/pkg/data/object"
-	"github.com/hectorgimenez/d2go/pkg/utils"
+	"github.com/BFMVAUS/d2go/pkg/data/mode"
+
+	"github.com/BFMVAUS/d2go/pkg/data"
+	"github.com/BFMVAUS/d2go/pkg/data/object"
+	"github.com/BFMVAUS/d2go/pkg/utils"
 )
 
 func (gd *GameReader) Objects(playerPosition data.Position, hover data.HoverData) []data.Object {

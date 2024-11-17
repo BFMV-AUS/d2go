@@ -1,8 +1,9 @@
 package utils
 
 import (
-	"github.com/hectorgimenez/d2go/pkg/data"
 	"math"
+
+	"github.com/BFMVAUS/d2go/pkg/data"
 )
 
 func DistanceFromPoint(from data.Position, to data.Position) int {

@@ -2,12 +2,13 @@ package main
 
 import (
 	"context"
-	itemwatcher "github.com/hectorgimenez/d2go/cmd/itemwatcher/internal"
-	"github.com/hectorgimenez/d2go/pkg/memory"
-	"github.com/hectorgimenez/d2go/pkg/nip"
 	"log"
 	"os"
 	"os/signal"
+
+	itemwatcher "github.com/BFMVAUS/d2go/cmd/itemwatcher/internal"
+	"github.com/BFMVAUS/d2go/pkg/memory"
+	"github.com/BFMVAUS/d2go/pkg/nip"
 )
 
 func main() {

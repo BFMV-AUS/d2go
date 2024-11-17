@@ -2,7 +2,8 @@ package memory
 
 import (
 	"fmt"
-	"github.com/hectorgimenez/d2go/pkg/data/quest"
+
+	"github.com/BFMVAUS/d2go/pkg/data/quest"
 )
 
 func (gd *GameReader) getQuests(questBytes []byte) quest.Quests {

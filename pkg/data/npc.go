@@ -1,9 +1,9 @@
 package data
 
 import (
-	"github.com/hectorgimenez/d2go/pkg/data/npc"
-	"github.com/hectorgimenez/d2go/pkg/data/stat"
-	"github.com/hectorgimenez/d2go/pkg/data/state"
+	"github.com/BFMVAUS/d2go/pkg/data/npc"
+	"github.com/BFMVAUS/d2go/pkg/data/stat"
+	"github.com/BFMVAUS/d2go/pkg/data/state"
 )
 
 type NPC struct {

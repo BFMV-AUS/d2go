@@ -6,11 +6,11 @@ import (
 	"strconv"
 	"strings"
 
+	"github.com/BFMVAUS/d2go/pkg/data"
+	"github.com/BFMVAUS/d2go/pkg/data/item"
+	"github.com/BFMVAUS/d2go/pkg/data/stat"
 	"github.com/expr-lang/expr"
 	"github.com/expr-lang/expr/vm"
-	"github.com/hectorgimenez/d2go/pkg/data"
-	"github.com/hectorgimenez/d2go/pkg/data/item"
-	"github.com/hectorgimenez/d2go/pkg/data/stat"
 )
 
 const (

@@ -1,10 +1,12 @@
 package data
 
 import (
+	"fmt"
 	"strings"
 
-	"github.com/hectorgimenez/d2go/pkg/data/item"
-	"github.com/hectorgimenez/d2go/pkg/data/stat"
+	"github.com/BFMVAUS/d2go/pkg/data"
+	"github.com/BFMVAUS/d2go/pkg/data/item"
+	"github.com/BFMVAUS/d2go/pkg/data/stat"
 )
 
 type Inventory struct {
@@ -20,6 +22,15 @@ func (i Inventory) Find(name item.Name, locations ...item.LocationType) (Item, b
 			// If no locations are specified, return the first item found
 			if len(locations) == 0 {
 				return it, true
+			}
+
+			stashHeight := 4               // Default for pre-expansion stash dimensions
+			if !gd.config.IsPreExpansion { // Expansion mode dimensions
+				stashHeight = 10
+			}
+
+			if stashHeight < 1 {
+				return data.Inventory{}, fmt.Errorf("invalid stash dimensions: height=%d", stashHeight)
 			}
 
 			for _, l := range locations {
