@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/BFMVAUS/d2go/pkg/data"
 	"github.com/BFMVAUS/d2go/pkg/data/item"
 	"github.com/BFMVAUS/d2go/pkg/data/stat"
 )
@@ -22,15 +21,6 @@ func (i Inventory) Find(name item.Name, locations ...item.LocationType) (Item, b
 			// If no locations are specified, return the first item found
 			if len(locations) == 0 {
 				return it, true
-			}
-
-			stashHeight := 4               // Default for pre-expansion stash dimensions
-			if !gd.config.IsPreExpansion { // Expansion mode dimensions
-				stashHeight = 10
-			}
-
-			if stashHeight < 1 {
-				return data.Inventory{}, fmt.Errorf("invalid stash dimensions: height=%d", stashHeight)
 			}
 
 			for _, l := range locations {
@@ -68,6 +58,35 @@ func (i Inventory) ByLocation(locations ...item.LocationType) []Item {
 	return items
 }
 
+// StashMatrix builds a dynamic matrix based on stash dimensions
+func (i Inventory) StashMatrix(stashHeight int, stashWidth int) ([][]bool, error) {
+	// Validate dimensions
+	if stashHeight <= 0 || stashWidth <= 0 {
+		return nil, fmt.Errorf("invalid stash dimensions: height=%d, width=%d", stashHeight, stashWidth)
+	}
+
+	// Create a matrix with the given dimensions
+	matrix := make([][]bool, stashHeight)
+	for j := 0; j < stashHeight; j++ {
+		matrix[j] = make([]bool, stashWidth)
+	}
+
+	// Mark occupied slots in the matrix based on item positions
+	for _, itm := range i.ByLocation(item.LocationStash) {
+		for k := 0; k < itm.Desc().InventoryWidth; k++ {
+			for j := 0; j < itm.Desc().InventoryHeight; j++ {
+				// Ensure we don't go out of bounds
+				if itm.Position.Y+j < stashHeight && itm.Position.X+k < stashWidth {
+					matrix[itm.Position.Y+j][itm.Position.X+k] = true
+				}
+			}
+		}
+	}
+
+	return matrix, nil
+}
+
+// InventoryMatrix builds a static matrix for inventory slots
 func (i Inventory) Matrix() [4][10]bool {
 	invMatrix := [4][10]bool{} // false = empty, true = occupied
 	for _, itm := range i.ByLocation(item.LocationInventory) {

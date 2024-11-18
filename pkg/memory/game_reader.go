@@ -10,13 +10,26 @@ import (
 type GameReader struct {
 	offset Offset
 	Process
+	Config *Config // Added Config field for stash settings
+}
+
+type Config struct {
+	IsPreExpansion bool // Determines if pre-expansion stash dimensions are used
 }
 
 func NewGameReader(process Process) *GameReader {
 	return &GameReader{
 		offset:  calculateOffsets(process),
 		Process: process,
+		Config:  &Config{}, // Initialize with an empty Config
 	}
+}
+
+func (gd *GameReader) GetStashDimensions() (int, int) {
+	if gd.Config.IsPreExpansion {
+		return 4, 6 // Pre-expansion stash dimensions
+	}
+	return 10, 10 // Expansion stash dimensions
 }
 
 func (gd *GameReader) GetData() data.Data {
@@ -121,6 +134,8 @@ func (gd *GameReader) hoveredData() data.HoverData {
 
 	return data.HoverData{}
 }
+
+// Remaining functions remain unchanged...
 
 func (gd *GameReader) getStatsList(statListPtr uintptr) stat.Stats {
 	statsListBuffer := gd.ReadBytesFromMemory(statListPtr, 0x10)
